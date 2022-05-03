@@ -25,10 +25,10 @@ export default function Chat({ user }: ChatProps) {
   }, []);
 
   useEffect(() => {
-    api.database.listDocuments('chat', [
+    api.database.listDocuments<ChatMessage>('chat', [
       Query.equal('room', params.get('room') || 'general'),
     ]).then((data) => {
-      setMessages(data.documents as ChatMessage[]);
+      setMessages(data.documents);
     });
 
   }, []);
