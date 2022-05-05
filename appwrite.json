@@ -1,0 +1,17 @@
+{
+    "projectId": "codingcat",
+    "projectName": "Coding Cat Chat",
+    "functions": [
+        {
+            "$id": "627412862de83492f6fa",
+            "name": "chat",
+            "runtime": "node-16.0",
+            "path": "functions/chat",
+            "entrypoint": "src/index.js",
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 15
+        }
+    ]
+}
