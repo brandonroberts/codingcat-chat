@@ -12,23 +12,21 @@ interface LoginFormProps {
 export default function LoginForm({ user, setUser }: LoginFormProps) {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (user) {
-      navigate('/chat?room=general');
-    }
-  }, []);
-
   async function login(e: any) {
     e.preventDefault();
     const form = new FormData(e.target);
     const name = form.get('name') as string;
     const room = form.get('room') as string;
-    await api.account.createAnonymousSession();
-    await api.account.updateName(name);
-    const session = await api.account.get();
-    setUser(session);
 
-    navigate(`/chat?room=${room}`);
+    try {
+      await api.account.createAnonymousSession();
+      await api.account.updateName(name);
+      const session = await api.account.get();
+      setUser(session);
+    } catch (e) {
+    } finally {
+      navigate(`/chat?room=${room}`);
+    }
   }
 
   return (
@@ -39,12 +37,12 @@ export default function LoginForm({ user, setUser }: LoginFormProps) {
         <p className="login-name">
           <label htmlFor="name">Name</label>
 
-          <input type="text" id="name" name="name" placeholder="Enter Name"/>
+          <input type="text" id="name" name="name" placeholder="Enter Name" />
         </p>
 
         <p className="login-room">
           <label htmlFor="room">Room</label>
-          <input type="text" id="room" name="room" placeholder="Room Name"/>
+          <input type="text" id="room" name="room" placeholder="Room Name" />
         </p>
 
         <button type="submit">Start Chatting</button>
